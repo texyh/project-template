@@ -13,7 +13,7 @@ variables:
 
 jobs:
   - job: BuildApi
-    displayName: "Build Payment Gateway api"
+    displayName: "Build api"
     pool:
       vmImage: $(vmImage)
 

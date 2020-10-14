@@ -1,25 +1,12 @@
 ﻿using FluentValidation;
 using Marten;
-using Marten.Storage;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Npgsql;
 using ProjectTemplate.Application.Abstractions.Commands;
-using ProjectTemplate.Application.Abstractions.Queries;
 using ProjectTemplate.Application.Decorators;
-using ProjectTemplate.Application.Payments.GetPayment;
-using ProjectTemplate.Domain.Payments;
-using ProjectTemplate.Infrastructure;
-using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 
 namespace ProjectTemplate.Api
 {
@@ -51,7 +38,7 @@ namespace ProjectTemplate.Api
         public static IServiceCollection AddFluentValidation(this IServiceCollection services)
         {
             AssemblyScanner
-                .FindValidatorsInAssembly(typeof(GetPaymentQueryValidator).Assembly)
+                .FindValidatorsInAssembly(typeof(ICommand).Assembly)
                 .ForEach(item => services.AddScoped(item.InterfaceType, item.ValidatorType));
 
             return services;
@@ -70,7 +57,7 @@ namespace ProjectTemplate.Api
             var connectionString = GetConnectionString(configuration);
             var options = new StoreOptions();
             options.Connection(connectionString);
-            options.Events.InlineProjections.AggregateStreamsWith<Payment>();
+            //options.Events.InlineProjections.AggregateStreamsWith<>();
             services.AddMarten(options);
 
             return services;

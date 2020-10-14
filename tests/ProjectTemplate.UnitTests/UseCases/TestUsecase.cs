@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ProjectTemplate.Domain.Payments
+namespace ProjectTemplate.UnitTests.UseCases
 {
-    interface IPaymentService
+    class TestUsecase
     {
     }
 }

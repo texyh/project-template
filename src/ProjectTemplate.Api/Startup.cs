@@ -1,22 +1,12 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using ProjectTemplate.Infrastructure.AcquiringBank;
 using ILogger = Serilog.ILogger;
 using ProjectTemplate.Api.Middleware;
-using ProjectTemplate.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 using MediatR;
-using ProjectTemplate.Application.Payments.GetPayment;
+using ProjectTemplate.Application.Abstractions.Commands;
 
 namespace ProjectTemplate.Api
 {
@@ -31,14 +21,13 @@ namespace ProjectTemplate.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<AcquiringBankSettings>(options =>  options.ApiUrl = Configuration.GetValue("BANK_API_URL", string.Empty));
 
             services
                 .AddSwaggerGen()
                 .AddFluentValidation()
                 .AddControllers();
 
-            services.AddMediatR(typeof(Startup), typeof(GetPaymentQuery))
+            services.AddMediatR(typeof(Startup), typeof(ICommand))
                     .AddCommandHandlerDecorators();
 
         }

@@ -2,7 +2,7 @@ trigger:
 - main
 
 variables:
-  vmImage: 'ubuntu-latest'
+  vmImageName: 'ubuntu-latest'
 
 jobs:
   - job: CalculateBuildVersion

@@ -15,6 +15,7 @@ jobs:
       displayName: 'Calculate SemVer'
       inputs:
         runtime: 'core'
+        configFilePath: 'GitVersion.yml'
         updateAssemblyInfo: true
       condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
   

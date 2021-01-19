@@ -10,14 +10,15 @@ jobs:
     pool:
       vmImage: $(vmImageName)
     steps:
-  
-    - task: GitVersion@5
-      displayName: 'Calculate SemVer'
+
+    - task: gitversion/setup@0
+      displayName: Install GitVersion
       inputs:
-        runtime: 'core'
-        configFilePath: 'GitVersion.yml'
-        updateAssemblyInfo: true
+        versionSpec: '5.x'
       condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
+
+    - script: echo $(GitVersion.SemVer)
+      displayName: 'Print Version'
   
     - script: echo '##vso[task.setvariable variable=buildVersion]$(GitVersion.SemVer)'
       displayName: "Set the build Version as SemVer"
@@ -25,7 +26,7 @@ jobs:
   
     - script: echo '##vso[task.setvariable variable=buildVersion;isOutput=true]$(buildVersion)'
       name: setVersion
-      displayName: 'Export the buildVersion'
+      displayName: 'Export the buildVersion for other jobs'
 
 
   - job: PackAndPush

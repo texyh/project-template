@@ -17,6 +17,9 @@ jobs:
         versionSpec: '5.x'
       condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
 
+    - task: gitversion/execute@0
+      displayName: Determine Version
+
     - script: | 
         echo $(GitVersion.SemVer)
       displayName: 'Print Version'

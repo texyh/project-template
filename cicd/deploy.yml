@@ -44,7 +44,7 @@ jobs:
     pool:
       vmImage: $(vmImageName)
     variables:
-      buildVersion: $[ dependencies.CalculateVersion.outputs['setVersion.setBuildVersion'] ]
+      buildVersion: $[ dependencies.CalculateVersion.outputs['setBuildVersion.buildVersion'] ]
       
     steps:
 

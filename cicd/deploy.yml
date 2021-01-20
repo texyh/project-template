@@ -27,6 +27,10 @@ jobs:
     - script: echo '##vso[task.setvariable variable=buildVersion]$(GitVersion.SemVer)'
       displayName: "Set the build Version as SemVer"
       condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
+
+    - script: |
+        echo $(buildVersion)
+      displayName: Debugging
   
     - script: echo '##vso[task.setvariable variable=buildVersion;isOutput=true]$(buildVersion)'
       name: setVersion

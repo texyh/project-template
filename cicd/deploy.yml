@@ -24,11 +24,6 @@ jobs:
         echo $(GitVersion.SemVer)
       displayName: 'Print Version'
 
-    - script: |
-        echo $(Build.SourceBranch)
-        echo $(GitVersion.NuGetVersion)
-      displayName: Debugging
-  
     - script: echo '##vso[task.setvariable variable=buildVersion]$(GitVersion.SemVer)'
       displayName: "Set the build Version as SemVer"
       condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')

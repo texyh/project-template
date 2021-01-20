@@ -55,6 +55,10 @@ jobs:
         versionEnvVar: 'buildVersion'
       condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
 
+    - task: NuGetAuthenticate@0
+      displayName: 'Authenticate'
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
+
     - task: DotNetCoreCLI@2
       displayName: 'NuGet Push'
       inputs:

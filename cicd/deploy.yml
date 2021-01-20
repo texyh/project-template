@@ -67,5 +67,6 @@ jobs:
         command: 'push'
         feedsToUse: 'select'
         publishVstsFeed: 'Onwuzulike-Emeka'
+        packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
         allowPackageConflicts: true
       condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')

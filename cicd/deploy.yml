@@ -46,7 +46,8 @@ jobs:
     - script: |
         echo 'buidVersion'
         echo $(buildVersion)
-        
+        echo $(GitVersion.SemVer)
+
     - task: DotNetCoreCLI@2
       displayName: 'NuGet Pack'
       inputs:

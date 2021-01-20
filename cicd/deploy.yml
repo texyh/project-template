@@ -26,7 +26,6 @@ jobs:
 
     - script: echo '##vso[task.setvariable variable=buildVersion]$(GitVersion.SemVer)'
       displayName: "Set the build Version as SemVer"
-      name: setBuildVersion
       condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
 
     - script: |
@@ -44,7 +43,7 @@ jobs:
     pool:
       vmImage: $(vmImageName)
     variables:
-      buildVersion: $[ dependencies.CalculateVersion.outputs['setBuildVersion.buildVersion'] ]
+      buildVersion: $[ dependencies.CalculateBuildVersion.outputs['setVersion.buildVersion'] ]
       
     steps:
 

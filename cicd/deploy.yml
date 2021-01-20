@@ -46,7 +46,7 @@ jobs:
       displayName: 'NuGet Pack'
       inputs:
         command: 'pack'
-        packagesToPack: 'src/'
+        packagesToPack: 'src/**/*.csproj'
         versioningScheme: 'byEnvVar'
         versionEnvVar: 'buildVersion'
       condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')

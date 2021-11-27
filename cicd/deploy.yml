@@ -73,7 +73,7 @@ jobs:
   - job: Release
     dependsOn: [ CalculateBuildVersion, PackAndPush]
     pool:
-      vmImage: $(vmImage)
+      vmImage: $(vmImageName)
     variables:
       buildVersion: $[ dependencies.CalculateBuildVersion.outputs['setVersion.buildVersion'] ]
       isDraft: ${{ ne(variables['Build.SourceBranch'], 'refs/heads/main') }}

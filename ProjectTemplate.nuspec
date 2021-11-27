@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Project.Template</id>
+    <title>Project template</title>
+    <version>0.1.0</version>
+    <authors>Emeka Onwuzulike</authors>
+    <description>
+      A simple Project Template for scalfolding asp.net app with clean architecture.
+    </description>
+    <language>en-US</language>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/texyh/project-template</projectUrl>
+    <releaseNotes>initial release</releaseNotes>
+    <packageTypes>
+      <packageType name="Template" />
+    </packageTypes>
+    <tags>Web ASP.NET "Clean Architecture" ddd</tags>
+  </metadata>
+  <files>
+    <file src=".\**" target="content" exclude="**\bin\**;**\obj\**;**\.git\**;**\.github\**;**\*.user;**\.vs\**;**\.vscode\**;**\.gitignore" />
+  </files>
+</package>

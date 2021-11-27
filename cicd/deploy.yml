@@ -3,6 +3,7 @@ trigger:
 
 variables:
   vmImageName: 'ubuntu-latest'
+  gitHubServiceConnection: 'texy-devops'
 
 jobs:
   - job: CalculateBuildVersion
@@ -50,7 +51,7 @@ jobs:
       displayName: 'NuGet Pack'
       inputs:
         command: 'pack'
-        packagesToPack: 'src/**/*.csproj'
+        packagesToPack: 'ProjectTemplate.nuspec'
         versioningScheme: 'byEnvVar'
         versionEnvVar: 'buildVersion'
       condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
@@ -68,3 +69,25 @@ jobs:
         packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
         allowPackageConflicts: true
       condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
+
+  - job: Release
+    dependsOn: [ CalculateBuildVersion, PackAndPush]
+    pool:
+      vmImage: $(vmImage)
+    variables:
+      buildVersion: $[ dependencies.CalculateBuildVersion.outputs['setVersion.buildVersion'] ]
+      isDraft: ${{ ne(variables['Build.SourceBranch'], 'refs/heads/main') }}
+    steps:
+    - task: GitHubRelease@1
+      displayName: Tag GitHub repository
+      inputs:
+        gitHubConnection: $(gitHubServiceConnection)
+        repositoryName: $(Build.Repository.Name)
+        action: 'create'
+        target: $(Build.SourceVersion)
+        tagSource: 'userSpecifiedTag'
+        tag: $(buildVersion)
+        changeLogCompareToRelease: 'lastFullRelease'
+        changeLogType: 'commitBased'
+        isDraft: $(isDraft)
+        assets: 
